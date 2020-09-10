@@ -1,0 +1,11 @@
+<h1>
+	Edit Page
+</h1>
+
+<form action="/workouts/<%= workout._id %>?_method=PUT" method="POST">
+	<div><input type="text" name="workout[name]" value="<%= workout.name %>"></div>
+	<div><input type="text" name="workout[image]" value="<%= workout.image %>"></div>
+	<div><textarea name="workout[notes]"><%= workout.notes %>"></textarea></div>
+	<div><input type="text" name="workout[difficulty]" value="<%= workout.difficulty %>"></div>
+	<div><input type="submit"></div>
+</form>

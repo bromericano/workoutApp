@@ -1,10 +1,12 @@
 <h1>
 	Index Page
 </h1>
+<a href="/workouts/new">Add New Workout</a>
 
 <% workouts.forEach(function(workout) { %>
-	<div><%= workout.name %></div>
-	<img src="<%= workout.image %>">
-	<div><%= workout.notes %></div>
-	<div><%= workout.difficulty %></div>
+<div><%= workout.name %></div>
+<img src="<%= workout.image %>">
+<div><%= workout.notes %></div>
+<div><%= workout.difficulty %></div>
+<a href="/workouts/<%= workout._id %>">Read More</a>
 <% }) %>

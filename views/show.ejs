@@ -1,0 +1,8 @@
+<h1><%= workout.name %></h1>
+<div><img src="<%= workout.image %>"></div>
+<p><%= workout.notes %></p>
+<span><%= workout.difficulty %></span>
+<a href="/workouts/<%= workout._id %>/edit">EDIT</a>
+<form action="/workouts/<%= workout._id %>?_method=DELETE" method="POST">
+	<button>DELETE</button>
+</form>

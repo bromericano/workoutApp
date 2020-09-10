@@ -1,7 +1,8 @@
 const express = require("express"),
 	  app = express(),
 	  mongoose = require("mongoose"),
-	  bodyParser = require("body-parser");
+	  bodyParser = require("body-parser"),
+	  methodOverride = require("method-override");
 
 mongoose.connect('mongodb://localhost:27017/workout_app', {
   useNewUrlParser: true,
@@ -12,6 +13,7 @@ mongoose.connect('mongodb://localhost:27017/workout_app', {
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 
 //MONGOOSE MODEL/CONFIG
 let workoutSchema = new mongoose.Schema ({
@@ -55,14 +57,53 @@ app.post("/workouts", function(req, res) {
 	})
 });
 
-//VIEW (View entry)
+//SHOW (show entry)
+app.get("/workouts/:id", function(req,res) {
+	Workout.findById(req.params.id, function(err, foundWorkout) {
+		if(err) {
+			console.log(err);
+			res.redirect("/workouts");
+		} else {
+			res.render("show", {workout: foundWorkout});
+		}
+	});
+});
 
 //EDIT (Form to change entry)
+app.get("/workouts/:id/edit", function(req, res) {
+	Workout.findById(req.params.id, function(err, foundWorkout) {
+		if(err) {
+			console.log(err);
+			res.redirect("/workouts");
+		} else {
+			res.render("edit", {workout: foundWorkout});
+		}
+	});
+});
 
 //UPDATE (Submit changes to be enacted)
+app.put("/workouts/:id", function(req, res) {
+	Workout.findByIdAndUpdate(req.params.id, req.body.workout, function(err, updatedWorkout) {
+		if(err) {
+			console.log(err);
+			res.redirect("/workouts");
+		} else {
+			res.redirect("/workouts/" + req.params.id);
+		}
+	});
+});
 
 //DESTROY (Delete entry)
-
+app.delete("/workouts/:id", function(req, res) {
+	Workout.findByIdAndRemove(req.params.id, function(err) {
+		if(err) {
+			console.log(err);
+			res.redirect("/workouts");
+		} else {
+			res.redirect("/workouts");
+		}
+	});
+});
 
 
 
