@@ -1,0 +1,10 @@
+<h1>
+	Index Page
+</h1>
+
+<% workouts.forEach(function(workout) { %>
+	<div><%= workout.name %></div>
+	<img src="<%= workout.image %>">
+	<div><%= workout.notes %></div>
+	<div><%= workout.difficulty %></div>
+<% }) %>
